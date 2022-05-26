@@ -20,41 +20,66 @@
     <script src="https://unpkg.com/vue@3"></script>
   </head>
   <body>
-    <div id="app">
-      <h1>{{ message }}</h1>
-      <p>count is : {{ counter.count }}</p>
-      <div V-bind:id="Dynamic"></div>
-      <button @click="increase">Increase count</button>
+    <div id="app" class="text-center alert-dark p-5 rounded rounded-3" style="margin-top: 10%; margin-inline: 35% ;">
+      <div v-if="checkValue">
+        <h1 >{{ message }}</h1>
+        <p>count is : {{ counter.count }}</p>
+        <div V-bind:id="Dynamic"></div>
+        <button @click="increase" class="btn btn-success">Increase count</button>
+      </div>
+      <div v-else class="d-inline m-2 justify-content-center">
+        <button class="btn btn-success" @click="increase">appear</button>
+      </div>
+      <button @click="disappear" class="btn btn-danger m-2 justify-content-center">disappear</button>
+
     </div>
 
-    <!-- <script type="module">
+    <script type="module">
       const { createApp } = Vue;
       // import { createApp } from 'vue'       Vue version 2
       createApp({
         data() {
-          return {  
+          return {
             message: "Hello Vue!",
             counter: {
               count: 0,
             },
             Dynamic: "DynamicID",
+            diable : true
           };
-        }, 
+        },
         methods: {
           increase() {
-           this.counter.count++;
-         }
+            this.counter.count++;
+          },
+          disappear(){
+            while(true){
+              if(this.counter.count == 0){
+                break;
+              }
+              else if(this.counter.count < 0){
+                this.counter.count = 0;
+                break;
+              }
+              this.counter.count--;
+            }
+          }
+        },
+        computed: {
+          checkValue() {
+            return this.counter.count ? true : false;
+          },
         },
       }).mount("#app");
-    </script> -->
-      <script>
+    </script>
+    <script>
       let elements = {
         FirstName: "محمد صادق",
         LastName: "ایلاقی حسینی",
         age: 24,
       };
       for (key in elements) {
-        console.log(`key :  ${key} value : ${elements[key]} `); 
+        console.log(`key :  ${key} value : ${elements[key]} `);
       }
     </script>
   </body>
